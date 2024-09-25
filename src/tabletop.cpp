@@ -18,4 +18,4 @@ bool TableTop::removeRobot(std::unique_ptr<iRobot> robot) { return false; }
 
 bool TableTop::removeRobotAt(Position position) { return false; }
 
-bool TableTop::clearTableTop( return true; );
+bool TableTop::clearTableTop(){ return true; };
