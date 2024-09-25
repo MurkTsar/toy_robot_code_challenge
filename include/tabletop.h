@@ -54,6 +54,13 @@ public:
     bool removeRobotAt(Position position);
 
     /**
+     * @brief removes all robots on the tabletop
+     * @return true if all robots were removed successfully
+     * @return false if no robot exists
+     */
+    bool clearTableTop();
+
+    /**
      * @brief Checks if a specific position is valid on the tabletop
      * @param x X coordinate of the position
      * @param y Y coordinate of the position
