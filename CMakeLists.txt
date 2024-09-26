@@ -19,6 +19,7 @@ add_executable(${PROJECT_NAME}
     src/userinputlistener.cpp 
     src/userinputexecutor.cpp 
     src/movesetparser.cpp 
+    src/robotinputlistener.cpp
 )
 
 # directories
