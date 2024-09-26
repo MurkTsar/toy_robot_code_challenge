@@ -2,6 +2,8 @@
 #define STDROBOT_H
 
 #include "iRobot.h"
+#include "direction.h"
+#include "position.h"
 
 /**
  * @class stdRobot

@@ -1,4 +1,4 @@
-#include "./include/commandexecutor.h"
+#include "commandexecutor.h"
 
 CommandExecutor::CommandExecutor() {}
 CommandExecutor::~CommandExecutor() {}

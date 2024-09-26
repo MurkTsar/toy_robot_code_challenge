@@ -1,4 +1,4 @@
-#include "./include/movesetparser.h"
+#include "movesetparser.h"
 
 MovesetParser::MovesetParser() {}
 

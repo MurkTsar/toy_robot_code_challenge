@@ -1,4 +1,4 @@
-#include "./include/commandlinedisplay.h"
+#include "commandlinedisplay.h"
 
 // Constants for menu options
 constexpr const char* mainMenuOptions = 

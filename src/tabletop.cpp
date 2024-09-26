@@ -1,4 +1,4 @@
-#include "./include/tabletop.h"
+#include "tabletop.h"
 #include <iostream>
 
 TableTop::TableTop(int width, int length, unsigned int popCap)
