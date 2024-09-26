@@ -16,7 +16,7 @@ add_executable(${PROJECT_NAME}
     src/tabletop.cpp 
     src/robot.cpp 
     src/commandlinedisplay.cpp 
-    #src/userinputlistener.cpp 
+    src/userinputlistener.cpp 
     src/userinputexecutor.cpp 
     src/movesetparser.cpp 
 )
