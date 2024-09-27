@@ -72,6 +72,8 @@ enable_testing()
 set(TESTING
     tests/unit_tests/test_stdrobot.cpp
     tests/unit_tests/test_tabletop.cpp
+    tests/unit_tests/test_commandexecutor.cpp
+    tests/unit_tests/test_movesetparser.cpp
 )
 
 # Create the test executable
