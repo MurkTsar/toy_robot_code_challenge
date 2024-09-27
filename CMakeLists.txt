@@ -38,7 +38,7 @@ set(HEADERS
     include/direction.h
 )
 
-# Create a library for the ToyRobot
+# library for the ToyRobot
 add_library(ToyRobot STATIC ${SOURCES} ${HEADERS})
 
 # Include directories for the library
@@ -47,10 +47,10 @@ target_include_directories(ToyRobot
         ${PROJECT_SOURCE_DIR}/include
 )
 
-# Create the main executable
+# main executable
 add_executable(ToyRobotApp src/main.cpp)
 
-# Link the ToyRobot library to the main executable
+# Link ToyRobot library to main executable
 target_link_libraries(ToyRobotApp ToyRobot)
 
 # Compile unit tests
@@ -70,7 +70,8 @@ enable_testing()
 
 # Define source files for tests
 set(TESTING
-    tests/unit_tests/test_stdrobot.cpp  # Add other test files as needed
+    tests/unit_tests/test_stdrobot.cpp
+    tests/unit_tests/test_tabletop.cpp
 )
 
 # Create the test executable
@@ -82,5 +83,3 @@ target_link_libraries(UnitTests gtest_main ToyRobot)
 # Use GoogleTest's helper function to discover tests
 include(GoogleTest)
 gtest_discover_tests(UnitTests)
-
-# Add any additional configuration or settings here
