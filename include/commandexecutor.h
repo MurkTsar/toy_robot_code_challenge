@@ -15,7 +15,6 @@
 
 class CommandExecutor {
 public:
-    virtual ~CommandExecutor() = default;
     void execute(std::list<std::string> commands);
 };
 

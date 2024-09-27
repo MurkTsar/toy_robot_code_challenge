@@ -1,45 +1,86 @@
-cmake_minimum_required(VERSION 3.10)
+cmake_minimum_required(VERSION 3.14)
 
-# project name
-project(toy_robot)
-
-# C++ standard
+# Set C++ standard
 set(CMAKE_CXX_STANDARD 17)
-set(CMAKE_CXX_STANDARD_REQUIRED True)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-# gtest path
-add_subdirectory(lib/googletest)  # Assuming you cloned gtest into the lib directory
+# Project name
+project(toy_robot VERSION 1.0)
 
-# main program
-add_executable(${PROJECT_NAME} 
-    src/main.cpp 
-    src/tabletop.cpp 
-    src/robot.cpp 
-    src/commandlinedisplay.cpp 
-    src/userinputlistener.cpp 
-    src/userinputexecutor.cpp 
-    src/movesetparser.cpp 
+# Include directories
+include_directories(include)
+
+# Source and header files for the main library
+set(SOURCES
+    src/tabletop.cpp
+    src/stdRobot.cpp
+    src/commandlinedisplay.cpp
+    src/commandexecutor.cpp
+    src/userinputlistener.cpp
+    src/userinputexecutor.cpp
+    src/movesetparser.cpp
     src/robotinputlistener.cpp
+    src/logger.cpp
 )
 
-# directories
-target_include_directories(${PROJECT_NAME} 
+set(HEADERS
+    include/iRobot.h
+    include/tabletop.h
+    include/stdRobot.h
+    include/commandexecutor.h
+    include/commandlinedisplay.h
+    include/userinputlistener.h
+    include/userinputexecutor.h
+    include/movesetparser.h
+    include/robotinputlistener.h
+    include/logger.h
+    include/position.h
+    include/direction.h
+)
+
+# Create a library for the ToyRobot
+add_library(ToyRobot STATIC ${SOURCES} ${HEADERS})
+
+# Include directories for the library
+target_include_directories(ToyRobot
     PUBLIC
-        ${CMAKE_SOURCE_DIR}/include
+        ${PROJECT_SOURCE_DIR}/include
 )
 
-# enables testing
-# enable_testing()
+# Create the main executable
+add_executable(ToyRobotApp src/main.cpp)
 
-# Optionally add compiler flags
-if (MSVC)
-    target_compile_options(${PROJECT_NAME} PRIVATE /W4)
-else()
-    target_compile_options(${PROJECT_NAME} PRIVATE -Wall -Wextra -pedantic)
-endif()
+# Link the ToyRobot library to the main executable
+target_link_libraries(ToyRobotApp ToyRobot)
 
-# Add pthread if on a system where it's required (shouldn't be on Windows)
-if (UNIX)
-    find_package(Threads REQUIRED)
-    target_link_libraries(${PROJECT_NAME} Threads::Threads)
-endif()
+# Compile unit tests
+include(FetchContent)
+FetchContent_Declare(
+    googletest
+    URL https://github.com/google/googletest/archive/refs/heads/main.zip
+    DOWNLOAD_EXTRACT_TIMESTAMP TRUE  # Suppress warning
+)
+
+# Force shared CRT for GoogleTest
+set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
+FetchContent_MakeAvailable(googletest)
+
+# Enable testing
+enable_testing()
+
+# Define source files for tests
+set(TESTING
+    tests/unit_tests/test_stdrobot.cpp  # Add other test files as needed
+)
+
+# Create the test executable
+add_executable(UnitTests ${TESTING})
+
+# Link GoogleTest and the ToyRobot library to the test executable
+target_link_libraries(UnitTests gtest_main ToyRobot)
+
+# Use GoogleTest's helper function to discover tests
+include(GoogleTest)
+gtest_discover_tests(UnitTests)
+
+# Add any additional configuration or settings here
