@@ -3,7 +3,6 @@
 #include <list>
 #include <string>
 #include <fstream>
-#include <sstream>
 
 TEST_F(Test_movesetParser, ParseValidCommands) {
     std::string commandString = "MOVE LEFT RIGHT";
@@ -41,7 +40,7 @@ TEST_F(Test_movesetParser, ParseCommandsFromFile_FileNotFound) {
 }
 
 TEST_F(Test_movesetParser, ParseCommandsFromFileStream) {
-    std::stringstream ss("MOVE\nLEFT\nRIGHT\n");
+    std::string ss("MOVE\nLEFT\nRIGHT\n");
     std::optional<std::list<std::string>> result = parser.parseCommandsFromFile(ss);
 
     ASSERT_TRUE(result.has_value());

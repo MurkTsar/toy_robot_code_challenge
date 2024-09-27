@@ -37,7 +37,6 @@ public:
      */
     std::optional<std::list<std::string>> parseCommandsFromFile(std::ifstream& file);
 
-private:
     /**
      * @brief Cleans up the list of commands, removing invalid entries or whitespace
      * @param commands List of commands to clean up
