@@ -12,11 +12,67 @@ stdRobot::stdRobot(int xPos, int yPos, Direction direction)
 
 stdRobot::~stdRobot() {}
 
-bool stdRobot::move() { return true; }
+void stdRobot::move() {
+    switch (currentDirection) {
+        case Direction::NORTH:
+            currentPosition.y += 1;
+            break;
+        case Direction::EAST:
+            currentPosition.x += 1;
+            break;
+        case Direction::SOUTH:
+            currentPosition.y -= 1;
+            break;
+        case Direction::WEST:
+            currentPosition.x -= 1;
+            break;
+    }
+}
 
-void stdRobot::turnLeft() { }
+void stdRobot::turnLeft() {
+    switch (currentDirection) {
+        case Direction::NORTH:
+            currentDirection = Direction::WEST;
+            break;
+        case Direction::WEST:
+            currentDirection = Direction::SOUTH;
+            break;
+        case Direction::SOUTH:
+            currentDirection = Direction::EAST;
+            break;
+        case Direction::EAST:
+            currentDirection = Direction::NORTH;
+            break;
+    }
+}
 
-void stdRobot::turnRight() {}
+void stdRobot::turnRight() {
+    switch (currentDirection) {
+        case Direction::NORTH:
+            currentDirection = Direction::EAST;
+            break;
+        case Direction::EAST:
+            currentDirection = Direction::SOUTH;
+            break;
+        case Direction::SOUTH:
+            currentDirection = Direction::WEST;
+            break;
+        case Direction::WEST:
+            currentDirection = Direction::NORTH;
+            break;
+    }
+}
+
+/* NOTE:
+ * These were the implementations that I had in mind, but for readability purposes 
+ * and maintainability purposes, I've opted with the switch case style.
+ * 
+ * Turn Left
+ * currentDirection = static_cast<Direction>((static_cast<int>(currentDirection) + 3) % 4);
+ * 
+ * Turn Right
+ * currentDirection = static_cast<Direction>((static_cast<int>(currentDirection) + 1) % 4);
+ */
 
 Position stdRobot::reportPosition() {
     return currentPosition;

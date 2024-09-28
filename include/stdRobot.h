@@ -36,7 +36,7 @@ public:
     stdRobot(int xPos, int yPos, Direction direction);
     virtual ~stdRobot();
 
-    bool move() override;
+    void move() override;
     void turnLeft() override;
     void turnRight() override;
 

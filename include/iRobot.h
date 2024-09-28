@@ -10,7 +10,7 @@ public:
     virtual ~iRobot() = default;
     
     // Movement commands
-    virtual bool move() = 0;
+    virtual void move() = 0;
     virtual void turnLeft() = 0;
     virtual void turnRight() = 0;
 

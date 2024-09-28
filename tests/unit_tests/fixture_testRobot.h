@@ -4,7 +4,7 @@ class TestRobot : public iRobot {
 public:
     virtual ~TestRobot() = default;
 
-    bool move() override { return true; }
+    void move() override {}
     void turnLeft() override {}
     void turnRight() override {}
 
