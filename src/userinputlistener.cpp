@@ -1,4 +1,5 @@
 #include "userinputlistener.h"
+#include "commandlinedisplay.h"
 
 /**
  * @brief Listens for the user's first input (1-3).
@@ -6,49 +7,39 @@
  * @return int Returns the user's choice for the first set of options.
  */
 int UserInputListener::listenInitialInput() {
-    int choice = 0;
+    char choice = '\0';  // Use char to take one character as input
 
     while (true) {
-        std::cout << "Please choose an option:\n";
-        std::cout << "1 - IMPORT FILE\n";
-        std::cout << "2 - INPUT ROBOT ACTIONS\n";
-        std::cout << "3 - CLOSE PROGRAM\n";
-        std::cout << "Enter your choice: ";
+        CommandLineDisplay::displayMainMenu();
         std::cin >> choice;
 
-        // Validate input: Should be between 1 and 3
-        if (choice >= 1 && choice <= 3) {
-            break; // Valid input, break the loop
+        if (choice >= '1' && choice <= '3') {
+            return choice - '0';
         } else {
             std::cout << "Invalid input. Please enter a number between 1 and 3.\n";
         }
-    }
 
-    return choice;
+        std::cin.clear();
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+    }
 }
 
-/**
- * @brief Listens for the user's second input (1-2).
- * Valid options: 1 - TRY AGAIN, 2 - CLOSE PROGRAM.
- * @return int Returns the user's choice for the second set of options.
- */
 int UserInputListener::listenRetryOrExit() {
-    int choice = 0;
+    char choice = '\0';  // Use char to take one character as input
 
     while (true) {
-        std::cout << "Please choose an option:\n";
-        std::cout << "1 - TRY AGAIN\n";
-        std::cout << "2 - CLOSE PROGRAM\n";
-        std::cout << "Enter your choice: ";
+        CommandLineDisplay::displayRetryMenu();
         std::cin >> choice;
 
-        // Validate input: Should be either 1 or 2
-        if (choice == 1 || choice == 2) {
-            break; // Valid input, break the loop
+        // Check if the input is '1' or '2'
+        if (choice == '1' || choice == '2') {
+            return choice - '0';  // Convert char to int (e.g., '1' -> 1)
         } else {
             std::cout << "Invalid input. Please enter 1 or 2.\n";
         }
-    }
 
-    return choice;
+        // Clear any remaining input and reset the input stream
+        std::cin.clear();
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+    }
 }

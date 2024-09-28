@@ -15,19 +15,19 @@ public:
     /**
      * @brief Displays the main program options
      */
-    void displayMainMenu() const;
+    static void displayMainMenu();
 
     /**
      * @brief Displays retry options after an action
      */
-    void displayRetryMenu() const;
+    static void displayRetryMenu();
 
     /**
      * @brief Displays the current location of the robot
      * @param position The current position of the robot on the table
      * @param direction The current direction where the robot is facing
      */
-    void displayRobotLocation(const Position& position, const Direction& direction) const;
+    static void displayRobotLocation(const Position& position, const Direction& direction);
 
     /**
      * @brief Displays a graphical representation of the robot's location and direction on the tabletop
@@ -36,7 +36,7 @@ public:
      * @param tableSizeX The width of the tabletop
      * @param tableSizeY The length of the tabletop
      */
-    void displayRobotLocationGraphically(const Position& position, const Direction& direction, int tableSizeX, int tableSizeY) const;
+    static void displayRobotLocationGraphically(const Position& position, const Direction& direction, int tableSizeX, int tableSizeY);
 };
 
 #endif // COMMANDLINEDISPLAY_H

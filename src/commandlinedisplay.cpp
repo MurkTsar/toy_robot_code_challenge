@@ -14,18 +14,18 @@ constexpr const char* retryMenuOptions =
     "2 - CLOSE PROGRAM\n"
     "Enter your choice: ";
 
-void CommandLineDisplay::displayMainMenu() const {
+void CommandLineDisplay::displayMainMenu() {
     std::cout << mainMenuOptions;
 }
 
-void CommandLineDisplay::displayRetryMenu() const {
+void CommandLineDisplay::displayRetryMenu() {
     std::cout << retryMenuOptions;
 }
 
-void CommandLineDisplay::displayRobotLocation(const Position& position, const Direction& direction) const {
+void CommandLineDisplay::displayRobotLocation(const Position& position, const Direction& direction) {
     std::cout << "Current Robot Location: ";
 }
 
-void CommandLineDisplay::displayRobotLocationGraphically(const Position& position, const Direction& direction, int tableSizeX, int tableSizeY) const {
+void CommandLineDisplay::displayRobotLocationGraphically(const Position& position, const Direction& direction, int tableSizeX, int tableSizeY) {
     // @todo display table
 }
