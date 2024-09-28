@@ -41,10 +41,17 @@ TEST_F(Test_CommandExecutor, MovesRobot) {
 TEST_F(Test_CommandExecutor, IgnoresMoveOutOfBounds) {
     std::list<std::string> commands = {"PLACE 0,4,NORTH", "MOVE"};
     executor.execute(commands, *tabletop);
-    EXPECT_EQ(tabletop->selectRobot()->reportPosition().x, 0);
-    EXPECT_EQ(tabletop->selectRobot()->reportPosition().y, 4);
-    //ASSERT_TRUE(tabletop->selectRobot()->reportPosition() == Position(0, 4));
-    //ASSERT_TRUE(tabletop->selectRobot()->reportDirection() == Direction::NORTH);
+
+    ASSERT_TRUE(tabletop->selectRobot()->reportPosition() == Position(0, 4));
+    ASSERT_TRUE(tabletop->selectRobot()->reportDirection() == Direction::NORTH);
+}
+
+TEST_F(Test_CommandExecutor, IgnoresMoveOutOfBoundsSouthBound) {
+    std::list<std::string> commands = {"PLACE 0,0,SOUTH", "MOVE"};
+    executor.execute(commands, *tabletop);
+
+    ASSERT_TRUE(tabletop->selectRobot()->reportPosition() == Position(0, 0));
+    ASSERT_TRUE(tabletop->selectRobot()->reportDirection() == Direction::SOUTH);
 }
 
 TEST_F(Test_CommandExecutor, TurnsRobotLeftAndRight) {
