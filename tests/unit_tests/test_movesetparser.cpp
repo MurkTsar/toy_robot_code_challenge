@@ -5,7 +5,7 @@
 #include <fstream>
 
 TEST_F(Test_movesetParser, ParseValidCommandsDefaultPlace) {
-    std::string commandString = "PLACE MOVE LEFT RIGHT REPORT";
+    std::string commandString = "PLACE\nMOVE\nLEFT\nRIGHT\nREPORT";
     std::optional<std::list<std::string>> result = parser.parseCommands(commandString);
 
     ASSERT_TRUE(result.has_value());
@@ -14,7 +14,7 @@ TEST_F(Test_movesetParser, ParseValidCommandsDefaultPlace) {
 }
 
 TEST_F(Test_movesetParser, ParseValidCommands) {
-    std::string commandString = "PLACE 0, 1, NORTH MOVE LEFT RIGHT REPORT";
+    std::string commandString = "PLACE 0, 1, NORTH\nMOVE\nLEFT\n RIGHT\n\n\n REPORT";
     std::optional<std::list<std::string>> result = parser.parseCommands(commandString);
 
     ASSERT_TRUE(result.has_value());
@@ -22,11 +22,29 @@ TEST_F(Test_movesetParser, ParseValidCommands) {
     EXPECT_EQ(result.value(), expectedCommands);
 }
 
-TEST_F(Test_movesetParser, ParseInvalidCommands) {
-    std::string invalidCommandString = "";
+TEST_F(Test_movesetParser, ParseValidCommandsLargeWhiteSpace) {
+    std::string commandString = "PLACE\n MOVE        \n LEFT \n RIGHT \n REPORT";
+    std::optional<std::list<std::string>> result = parser.parseCommands(commandString);
+
+    ASSERT_TRUE(result.has_value());
+    std::list<std::string> expectedCommands = { "PLACE", "MOVE", "LEFT", "RIGHT", "REPORT" };
+    EXPECT_EQ(result.value(), expectedCommands);
+}
+
+TEST_F(Test_movesetParser, ParseInvalidCommandsBlank) {
+    std::string invalidCommandString = "     ";
     std::optional<std::list<std::string>> result = parser.parseCommands(invalidCommandString);
 
     EXPECT_FALSE(result.has_value());
+}
+
+TEST_F(Test_movesetParser, ParseInvalidCommandsOddPlaceCommand) {
+    std::string commandString = "1 , 2, NORTH PLACE\n MOVE        \n LEFT \n RIGHT \n REPORT";
+    std::optional<std::list<std::string>> result = parser.parseCommands(commandString);
+
+    ASSERT_TRUE(result.has_value());
+    std::list<std::string> expectedCommands = { "MOVE", "LEFT", "RIGHT", "REPORT" };
+    EXPECT_EQ(result.value(), expectedCommands);
 }
 
 TEST_F(Test_movesetParser, ParseCommandsFromFile) {
@@ -48,12 +66,16 @@ TEST_F(Test_movesetParser, ParseCommandsFromFile_FileNotFound) {
     EXPECT_FALSE(result.has_value());
 }
 
-TEST_F(Test_movesetParser, ParseCommandsFromFileStream) {
-    std::string ss("MOVE\nLEFT\nRIGHT\nPLACE");
-    std::optional<std::list<std::string>> result = parser.parseCommandsFromFile(ss);
+TEST_F(Test_movesetParser, ParseValidCommandsFromStream) {
+    std::string filename = "test_commands_2.txt";
+    std::ofstream out_file(filename);
+    out_file << "\nPLACE 1, 1, EAST\nMOVE\nLEFT\nRIGHT\nREPORT\n";
+    out_file.close();
+    std::ifstream in_file(filename);
+    std::optional<std::list<std::string>> result = parser.parseCommandsFromFile(in_file);
 
     ASSERT_TRUE(result.has_value());
-    std::list<std::string> expectedCommands = { "MOVE", "LEFT", "RIGHT", "PLACE" };
+    std::list<std::string> expectedCommands = { "PLACE 1, 1, EAST", "MOVE", "LEFT", "RIGHT", "REPORT" };
     EXPECT_EQ(result.value(), expectedCommands);
 }
 

@@ -1,10 +1,14 @@
 #ifndef MOVESETPARSER_H
 #define MOVESETPARSER_H
 
-#include <string>
 #include <list>
+#include <string>
+#include <sstream>
+#include <algorithm>
 #include <optional>
 #include <fstream>
+#include <cctype>
+#include <regex>
 
 /**
  * @class MovesetParser
@@ -12,7 +16,6 @@
  */
 class MovesetParser {
 public:
-
     MovesetParser();
     ~MovesetParser();
 
@@ -42,6 +45,12 @@ public:
      * @param commands List of commands to clean up
      */
     void cleanUp(std::list<std::string>& commands);
+
+private:
+    void cleanUpWhitespace(std::string& str);
+    void makeCaseInsensitive(std::string& str);
+    bool isValidCommand(const std::string& command);
+    bool isValidPlaceCommand(const std::string& command);
 };
 
 #endif // MOVESETPARSER_H
