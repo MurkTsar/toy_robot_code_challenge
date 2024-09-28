@@ -12,6 +12,7 @@ public:
     static Logger& getInstance();
     
     void log(const std::string& function, const std::string& message);
+    void stopLogger();
     
 private:
     Logger();

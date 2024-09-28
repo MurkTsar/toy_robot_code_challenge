@@ -39,6 +39,7 @@ public:
     void move() override;
     void turnLeft() override;
     void turnRight() override;
+    Position nextPosition() override;
 
     /**
      * @brief Reports the robot's current X,Y position.
@@ -51,6 +52,12 @@ public:
      * @return struct Direction
      */
     Direction reportDirection() override;
+
+    /**
+     * @brief Reports the robot's current position and direction.
+     * @return string
+     */
+    std::string toStringReport() override;
 
     /**
      * @brief picks robot up and sets the new Position and Direction

@@ -1,6 +1,10 @@
 #ifndef COMMANDEXECUTOR_H
 #define COMMANDEXECUTOR_H
 
+#include "tabletop.h"
+#include "logger.h"
+#include "stdRobot.h"
+
 #include <list>
 #include <string>
 //#include <memory>
@@ -15,7 +19,12 @@
 
 class CommandExecutor {
 public:
-    void execute(std::list<std::string> commands);
+    void CommandExecutor::execute(std::list<std::string> commands, TableTop& tabletop);
+    void CommandExecutor::executePlace(const std::string& command, TableTop& tabletop);
+    void CommandExecutor::executeMove(TableTop& tabletop);
+    void CommandExecutor::executeTurnRight(TableTop& tabletop);
+    void CommandExecutor::executeTurnLeft(TableTop& tabletop);
+    void CommandExecutor::executeReport(TableTop& tabletop);
 };
 
 #endif // COMMANDEXECUTOR_H

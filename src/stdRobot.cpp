@@ -74,12 +74,39 @@ void stdRobot::turnRight() {
  * currentDirection = static_cast<Direction>((static_cast<int>(currentDirection) + 1) % 4);
  */
 
+Position stdRobot::nextPosition() {
+    Position nextPos = currentPosition;
+
+    switch (currentDirection) {
+        case Direction::NORTH:
+            nextPos.y += 1;
+            break;
+        case Direction::EAST:
+            nextPos.x += 1;
+            break;
+        case Direction::SOUTH:
+            nextPos.y -= 1;
+            break;
+        case Direction::WEST:
+            nextPos.x -= 1;
+            break;
+    }
+
+    return nextPos;
+}
+
 Position stdRobot::reportPosition() {
     return currentPosition;
 }
 
 Direction stdRobot::reportDirection() {
     return currentDirection;
+}
+
+std::string stdRobot::toStringReport() {
+    return "output: " + std::to_string(currentPosition.x) + ", " 
+                      + std::to_string(currentPosition.y) + ", " 
+                      + directionToString(currentDirection);
 }
 
 void stdRobot::pickPlace(Position p, Direction f) {

@@ -12,31 +12,19 @@ struct Position {
     }
 
     bool operator<(const Position& pos) const {
-        if (x == pos.x) {
-            return y < pos.y;
-        }
-        return x < pos.x;
+        return y < pos.y && x < pos.x;
     }
 
     bool operator>(const Position& pos) const {
-        if (x == pos.x) {
-            return y > pos.y;
-        }
-        return x > pos.x;
+        return y > pos.y && x > pos.x;
     }
 
     bool operator<=(const Position& pos) const {
-        if (x == pos.x) {
-            return y <= pos.y;
-        }
-        return x <= pos.x;
+        return y <= pos.y && x <= pos.x;
     }
 
     bool operator>=(const Position& pos) const {
-        if (x == pos.x) {
-            return y >= pos.y;
-        }
-        return x >= pos.x;
+        return y >= pos.y && x >= pos.x;
     }
 };
 

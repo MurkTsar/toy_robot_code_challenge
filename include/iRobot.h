@@ -13,10 +13,12 @@ public:
     virtual void move() = 0;
     virtual void turnLeft() = 0;
     virtual void turnRight() = 0;
+    virtual Position nextPosition() = 0;
 
     // Reports
     virtual Position reportPosition() = 0;
     virtual Direction reportDirection() = 0;
+    virtual std::string toStringReport() = 0;
 
     // Changes
     virtual void pickPlace(Position p, Direction f) = 0;

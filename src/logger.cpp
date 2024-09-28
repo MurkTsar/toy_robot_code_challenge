@@ -29,6 +29,10 @@ void Logger::log(const std::string& function, const std::string& message) {
     }
 }
 
+void Logger::stopLogger(){
+    Logger::~Logger();
+}
+
 void Logger::saveToFile() {
     std::ofstream outFile("robot.log", std::ios::app);
     if (outFile.is_open()) {

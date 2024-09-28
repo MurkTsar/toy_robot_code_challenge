@@ -112,6 +112,18 @@ public:
      */
     bool isTableEmpty() const;
 
+    /**
+     * @brief gets the width of the table (the X)
+     * @return int width of the table
+     */
+    int tableWidth() const { return width; }
+
+    /**
+     * @brief gets the length of the table (the Y)
+     * @return int length of the table
+     */
+    int tableLength() const { return length; }
+
 private:
     int width;                               // Width of the tabletop
     int length;                              // Length of the tabletop
