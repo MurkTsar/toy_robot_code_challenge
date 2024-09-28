@@ -111,3 +111,11 @@ TEST(Test_stdRobot, turnLeft_360) {
 
     EXPECT_EQ(robot.reportDirection(), Direction::NORTH);
 }
+
+TEST(Test_stdRobot, toStringReport) {
+    robot.pickPlace(Position(2,2), Direction::NORTH);
+    robot.turnLeft();
+    robot.move();
+
+    EXPECT_EQ(robot.toStringReport(), "output: 1, 2, WEST");
+}
