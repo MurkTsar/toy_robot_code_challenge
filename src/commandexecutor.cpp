@@ -6,7 +6,7 @@
 
 void CommandExecutor::execute(std::list<std::string> commands, TableTop& tabletop) {
     if(commands.empty()){
-        Logger::getInstance().log(__FUNCTION__, "Empty command list");
+        LOG_ACTION("Empty command list");
         return;
     }
     
@@ -22,7 +22,7 @@ void CommandExecutor::execute(std::list<std::string> commands, TableTop& tableto
         } else if (command == "REPORT") {
             executeReport(tabletop);
         } else {
-            Logger::getInstance().log(__FUNCTION__, "Ignored invalid command: " + command);
+            LOG_ACTION("Ignored invalid command: " + command);
         }
     }
 
@@ -38,7 +38,7 @@ void CommandExecutor::executePlace(const std::string& command, TableTop& tableto
             tabletop.selectRobot()->pickPlace(Position(0,0),Direction::NORTH);
         }
         
-        Logger::getInstance().log(__FUNCTION__, "Robot placed at default position (0,0,NORTH)");
+        LOG_ACTION("Robot placed at default position (0,0,NORTH)");
     } else {
         std::smatch match;
         std::regex placeRegex(R"(^PLACE\s*(-?\d+)\s*,\s*(-?\d+)\s*,\s*(NORTH|EAST|SOUTH|WEST)$)");
@@ -54,24 +54,24 @@ void CommandExecutor::executePlace(const std::string& command, TableTop& tableto
                 if(tabletop.isTableEmpty()){
                     std::unique_ptr<stdRobot> newRobot = std::make_unique<stdRobot>(x, y, direction);
                     tabletop.placeRobot(std::move(newRobot));
-                    Logger::getInstance().log(__FUNCTION__, "Robot placed at (" + std::to_string(x) + "," + std::to_string(y) + "," + dir + ")");
+                    LOG_ACTION("Robot placed at (" + std::to_string(x) + "," + std::to_string(y) + "," + dir + ")");
                 } else {
                     tabletop.selectRobot()->pickPlace(Position(x,y),direction);
-                    Logger::getInstance().log(__FUNCTION__, "Robot placed at (" + std::to_string(x) + "," + std::to_string(y) + "," + dir + ")");
+                    LOG_ACTION("Robot placed at (" + std::to_string(x) + "," + std::to_string(y) + "," + dir + ")");
                 }
 
             } else {
-                Logger::getInstance().log(__FUNCTION__, "Invalid placement: (" + std::to_string(x) + "," + std::to_string(y) + ") is out of bounds");
+                LOG_ACTION("Invalid placement: (" + std::to_string(x) + "," + std::to_string(y) + ") is out of bounds");
             }
         } else {
-            Logger::getInstance().log(__FUNCTION__, "Invalid PLACE command format: " + command);
+            LOG_ACTION("Invalid PLACE command format: " + command);
         }
     }
 }
 
 void CommandExecutor::executeMove(TableTop& tabletop) {
     if(tabletop.isTableEmpty()) {
-        Logger::getInstance().log(__FUNCTION__, "Invalid MOVE command: No robot on table");
+        LOG_ACTION("Invalid MOVE command: No robot on table");
         return;
     }
 
@@ -79,40 +79,40 @@ void CommandExecutor::executeMove(TableTop& tabletop) {
 
     if (tabletop.isValidPosition(nextPosition.x, nextPosition.y)) {
         tabletop.selectRobot()->move();
-        Logger::getInstance().log(__FUNCTION__, "Robot moved to (" + std::to_string(nextPosition.x) + "," + std::to_string(nextPosition.y) + ")");
+        LOG_ACTION("Robot moved to (" + std::to_string(nextPosition.x) + "," + std::to_string(nextPosition.y) + ")");
     } else {
-        Logger::getInstance().log(__FUNCTION__, "Invalid MOVE command: Moving out of bounds");
+        LOG_ACTION("Invalid MOVE command: Moving out of bounds");
     }
 }
 
 void CommandExecutor::executeTurnRight(TableTop& tabletop) {
     if(tabletop.isTableEmpty()){
-        Logger::getInstance().log(__FUNCTION__, "Invalid RIGHT command: No robot on table");
+        LOG_ACTION("Invalid RIGHT command: No robot on table");
         return;
     }
 
     tabletop.selectRobot()->turnRight();
-    Logger::getInstance().log(__FUNCTION__, "Robot turned right");
+    LOG_ACTION("Robot turned right");
 }
 
 void CommandExecutor::executeTurnLeft(TableTop& tabletop) {
     if(tabletop.isTableEmpty()){
-        Logger::getInstance().log(__FUNCTION__, "Invalid LEFT command: No robot on table");
+        LOG_ACTION("Invalid LEFT command: No robot on table");
         return;
     }
 
     tabletop.selectRobot()->turnLeft();
-    Logger::getInstance().log(__FUNCTION__, "Robot turned left");
+    LOG_ACTION("Robot turned left");
 }
 
 void CommandExecutor::executeReport(TableTop& tabletop) {
     if(tabletop.isTableEmpty()){
-        Logger::getInstance().log(__FUNCTION__, "Invalid REPORT command: No robot on table");
+        LOG_ACTION("Invalid REPORT command: No robot on table");
         return;
     }
 
     std::string report = tabletop.selectRobot()->toStringReport();
 
     std::cout << report << std::endl;
-    Logger::getInstance().log(__FUNCTION__, "Robot sent a report " + report);
+    LOG_ACTION("Robot sent a report " + report);
 }

@@ -2,7 +2,9 @@
 #include "ToyRobotProgram.h"
 
 int main() {
+    Logger::getInstance();
     ToyRobotProgram::getInstance().run();
-    std::cout << "Goodbye Robot!" << std::endl;
+    Logger::getInstance().stopLogger();
+    ToyRobotProgram::getInstance().stop();
     return 0;
 }

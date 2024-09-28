@@ -13,6 +13,8 @@ std::optional<std::string> InputFileListener::listenForFilePath() {
 
     std::cout << "Enter the file path and file name containing the robot move sets (or press Enter to terminate): ";
 
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
     std::getline(std::cin, filePath);
 
     if (filePath.empty()) {
@@ -32,7 +34,6 @@ std::optional<std::string> InputFileListener::listenForFilePath() {
 std::string InputFileListener::cleanUpFilePath(const std::string& filePath) {
     std::string cleanedPath = filePath;
 
-    // Remove leading/trailing whitespace
     cleanedPath.erase(cleanedPath.begin(), std::find_if(cleanedPath.begin(), cleanedPath.end(), [](unsigned char ch) {
         return !std::isspace(ch);
     }));

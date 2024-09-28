@@ -23,13 +23,6 @@ public:
     static void displayRetryMenu();
 
     /**
-     * @brief Displays the current location of the robot
-     * @param position The current position of the robot on the table
-     * @param direction The current direction where the robot is facing
-     */
-    static void displayRobotLocation(const Position& position, const Direction& direction);
-
-    /**
      * @brief Displays a graphical representation of the robot's location and direction on the tabletop
      * @param position The current position of the robot
      * @param direction The current direction where the robot is facing

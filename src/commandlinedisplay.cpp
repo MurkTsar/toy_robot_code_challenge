@@ -22,10 +22,6 @@ void CommandLineDisplay::displayRetryMenu() {
     std::cout << retryMenuOptions;
 }
 
-void CommandLineDisplay::displayRobotLocation(const Position& position, const Direction& direction) {
-    std::cout << "Current Robot Location: ";
-}
-
 void CommandLineDisplay::displayRobotLocationGraphically(const Position& position, const Direction& direction, int tableSizeX, int tableSizeY) {
     char robotChar;
     switch (direction) {
