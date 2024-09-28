@@ -22,6 +22,7 @@ set(SOURCES
     src/robotinputlistener.cpp
     src/logger.cpp
     src/ToyRobotProgram.cpp
+    src/inputfilelistener.cpp
 )
 
 set(HEADERS
@@ -38,6 +39,7 @@ set(HEADERS
     include/position.h
     include/direction.h
     include/ToyRobotProgram.h
+    include/inputfilelistener.h
 )
 
 # library for the ToyRobot
