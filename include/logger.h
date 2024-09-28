@@ -19,6 +19,9 @@ private:
     
     void saveToFile();
 
+    Logger(const Logger&) = delete;
+    Logger& operator=(const Logger&) = delete;
+
     std::vector<std::string> logs;
     const size_t maxLogSize = 50;
 };

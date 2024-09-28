@@ -21,6 +21,7 @@ set(SOURCES
     src/movesetparser.cpp
     src/robotinputlistener.cpp
     src/logger.cpp
+    src/ToyRobotProgram.cpp
 )
 
 set(HEADERS
@@ -36,6 +37,7 @@ set(HEADERS
     include/logger.h
     include/position.h
     include/direction.h
+    include/ToyRobotProgram.h
 )
 
 # library for the ToyRobot
