@@ -36,19 +36,21 @@ TEST(Test_tabletop, selectRobotNoRobot) {
     ASSERT_EQ(squareTable.selectRobot(), nullptr);
 }
 
+/*
 TEST(Test_tabletop, isTableFull_tableNotFull) {
     EXPECT_FALSE(squareTable.isTableFull());
 }
+*/
 
 TEST(Test_tabletop, placeRobotSuccess) {
     squareTable.placeRobot(std::move(robot_1));
 
     EXPECT_FALSE(squareTable.isTableEmpty());
-    EXPECT_TRUE(squareTable.isTableFull());
+    //EXPECT_TRUE(squareTable.isTableFull());
 }
 
 TEST(Test_tabletop, placeRobotFail) {
-    EXPECT_TRUE(squareTable.isTableFull());
+    //EXPECT_TRUE(squareTable.isTableFull());
     EXPECT_FALSE(squareTable.placeRobot(std::move(robot_2)));
 }
 
@@ -56,8 +58,14 @@ TEST(Test_tabletop, selectRobotOneRobot) {
     ASSERT_NE(squareTable.selectRobot(), nullptr);
 }
 
-TEST(Test_tabletop, clearTableTop) {
-    ASSERT_TRUE(squareTable.clearTableTop());
+TEST(Test_tabletop, removeRobot) {
+    ASSERT_TRUE(squareTable.removeRobot());
     EXPECT_TRUE(squareTable.isTableEmpty());
+    ASSERT_EQ(squareTable.selectRobot(), nullptr);
+}
+
+TEST(Test_tabletop, removeRobotEmptyTable) {
+    EXPECT_TRUE(squareTable.isTableEmpty());
+    ASSERT_FALSE(squareTable.removeRobot());
     ASSERT_EQ(squareTable.selectRobot(), nullptr);
 }

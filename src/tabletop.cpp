@@ -4,22 +4,32 @@
 TableTop::TableTop(int width, int length, unsigned int popCap)
     : width(width), length(length), popCap(popCap) { }
 
-bool TableTop::placeRobot(std::unique_ptr<iRobot> robot) { return true; }
+bool TableTop::placeRobot(std::unique_ptr<iRobot> robot) { 
+    if(!isTableEmpty()) {
+        return false;
+    }
 
-bool TableTop::isValidPosition(int x, int y) const { return false; }
+    robotOnTheTable = std::move(robot);
 
-bool TableTop::isValidPosition(Position position) const { return false; }
+    return true; 
+}
 
-bool TableTop::isTableFull() const { return false; }
+bool TableTop::isValidPosition(int x, int y) const {
+    return (x < width && y < length) && (x >= 0 && y >= 0);
+}
 
-bool TableTop::isTableEmpty() const { return false; }
+bool TableTop::isValidPosition(Position position) const {
+    return position < Position(width, length) && position >= Position(0, 0);
+}
 
-iRobot* TableTop::selectRobot() { return nullptr; }
+bool TableTop::isTableEmpty() const { return robotOnTheTable == nullptr; }
 
-iRobot* TableTop::selectRobotAt(Position position) { return nullptr; }
+iRobot* TableTop::selectRobot() { return robotOnTheTable.get(); }
 
-bool TableTop::removeRobot(const iRobot &robot) { return false; }
-
-bool TableTop::removeRobotAt(Position position) { return false; }
-
-bool TableTop::clearTableTop(){ return true; };
+bool TableTop::removeRobot() {
+    if (!this->isTableEmpty()) {
+        robotOnTheTable.reset();
+        return true;
+    }
+    return false;
+}

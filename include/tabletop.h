@@ -35,6 +35,7 @@ public:
     bool placeRobot(std::unique_ptr<iRobot> robot);
 
     /**
+     * @todo deprecate this if list of robots is implemented
      * @brief Selects the only robot on the table
      * @return Pointer to iRobot if the robot exists on the table
      * @return nullptr if there is no robot on the table
@@ -42,43 +43,47 @@ public:
     iRobot* selectRobot();
 
     /**
+     * @todo future implementation where user can place multiple robots on the tabletop
      * @brief Selects a robot at a specific position on the tabletop
      * @param position The position where the robot is located
      * @return Pointer to the robot if one exists at the given position
      * @return nullptr if no robot is found at the given position
-     */
     iRobot* selectRobotAt(Position position);
+    */
 
     /**
+     * @todo future implementation where user can place multiple robots on the tabletop
      * @brief Provides read-only access to the list of all robots on the tabletop
      * @return A const reference to the list of unique pointers to robots
-     */
+     * 
     const std::list<std::unique_ptr<iRobot>>& provideListOfRobots() const {
         return robots;
     }
+    */
 
     /**
-     * @brief Removes a robot from the tabletop
-     * @param robot A reference to the iRobot object to remove
+     * @brief Removes the only robot from the tabletop
      * @return true if the robot was successfully removed
      * @return false if the robot does not exist
      */
-    bool removeRobot(const iRobot& robot);
+    bool removeRobot();
 
     /**
+     * @todo future implementation where user can place multiple robots on the tabletop
      * @brief Removes a robot at a specific position
      * @param position The position where the robot is located
      * @return true if the robot was successfully removed
      * @return false if no robot is found at the given position
-     */
     bool removeRobotAt(Position position);
+    */
 
     /**
+     * @todo future implementation where user can place multiple robots on the tabletop
      * @brief Removes all robots from the tabletop
      * @return true if all robots were successfully removed
      * @return false if no robots were on the table
-     */
     bool clearTableTop();
+    */
 
     /**
      * @brief Checks if a specific position is valid on the tabletop
@@ -96,11 +101,11 @@ public:
     bool isValidPosition(Position position) const;
 
     /**
+     * @todo only if if the robot list is imeplemented
      * @brief Checks if the tabletop is at full capacity
      * @return true if the tabletop is full, false otherwise
-     */
     bool isTableFull() const;
-
+    */
     /**
      * @brief Checks if the tabletop is empty
      * @return true if the tabletop is empty, false otherwise
@@ -111,7 +116,10 @@ private:
     int width;                               // Width of the tabletop
     int length;                              // Length of the tabletop
     unsigned int popCap;                     // Population capacity for robots
-    std::list<std::unique_ptr<iRobot>> robots; // List to hold unique pointers to robot objects
+    // @todo future implementation where user can place multiple robots on the tabletop
+    // std::list<std::unique_ptr<iRobot>> robots; // List to hold unique pointers to robot objects
+    std::unique_ptr<iRobot> robotOnTheTable;
+
 };
 
 #endif // TABLETOP_H
