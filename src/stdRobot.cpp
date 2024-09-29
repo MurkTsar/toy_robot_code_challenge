@@ -104,7 +104,7 @@ Direction stdRobot::reportDirection() {
 }
 
 std::string stdRobot::toStringReport() {
-    return "output: " + std::to_string(currentPosition.x) + ", " 
+    return "Output: " + std::to_string(currentPosition.x) + ", " 
                       + std::to_string(currentPosition.y) + ", " 
                       + directionToString(currentDirection);
 }
