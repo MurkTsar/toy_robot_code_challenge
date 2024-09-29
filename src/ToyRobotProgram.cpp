@@ -6,11 +6,11 @@ ToyRobotProgram& ToyRobotProgram::getInstance() {
 }
 
 ToyRobotProgram::ToyRobotProgram() {
-    std::cout << "ToyRobotProgram created" << std::endl;
+    LOG_ACTION("ToyRobotProgram created");
 }
 
 ToyRobotProgram::~ToyRobotProgram() {
-    std::cout << "ToyRobotProgram destroyed" << std::endl;
+    LOG_ACTION("ToyRobotProgram destroyed");
 }
 
 void ToyRobotProgram::run()
@@ -26,6 +26,7 @@ void ToyRobotProgram::run()
     TableTop squareTable = TableTop(5,5);
 
     while(running){
+        CommandLineDisplay::displayWelcome();
         mainmenuInput = userListener.listenInitialInput();
 
         switch (mainmenuInput)
@@ -49,6 +50,7 @@ void ToyRobotProgram::run()
         }
 
         if(!successOp){
+            CommandLineDisplay::clearScreen();
             continue;
         }
 
@@ -58,10 +60,13 @@ void ToyRobotProgram::run()
             mainmenuInput = 0;
             (void)squareTable.removeRobot();
             successOp = false;
+            CommandLineDisplay::clearScreen();
         } else if (tryagainInput == 2) {
             running = false;
         }
     }
+    
+    CommandLineDisplay::displayGoodbye();
 }
 
 bool ToyRobotProgram::filePath(CommandExecutor& executor, MovesetParser& moveParser, TableTop& aTable)
@@ -76,6 +81,7 @@ bool ToyRobotProgram::filePath(CommandExecutor& executor, MovesetParser& movePar
         setOfMoves = moveParser.parseCommandsFromFile(filePath.value());
         
         if (setOfMoves.has_value()){
+            CommandLineDisplay::displayMoveset(setOfMoves.value());
             executor.execute(setOfMoves.value(), aTable);
         } else {
             return false;

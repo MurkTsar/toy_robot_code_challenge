@@ -5,6 +5,8 @@
 #include "tabletop.h"
 #include "direction.h"
 #include <iostream>
+#include <string>
+#include <list>
 
 /**
  * @class CommandLineDisplay
@@ -21,6 +23,27 @@ public:
      * @brief Displays retry options after an action
      */
     static void displayRetryMenu();
+
+    /**
+     * @brief welcomes the use on the console screen
+     */
+    static void displayWelcome();
+
+    /**
+     * @brief prompts a goodbye on the console screen
+     */
+    static void displayGoodbye();
+
+    /**
+     * @brief displays set of moves console screen
+     * @param moves a list of strings
+     */
+    static void displayMoveset(const std::list<std::string>& moves);
+
+    /**
+     * @brief Clears the console screen
+     */
+    static void clearScreen();
 
     /**
      * @brief Displays a graphical representation of the robot's location and direction on the tabletop
