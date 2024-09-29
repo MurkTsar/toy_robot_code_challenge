@@ -13,7 +13,7 @@ ToyRobotProgram::~ToyRobotProgram() {
     LOG_ACTION("ToyRobotProgram destroyed");
 }
 
-void ToyRobotProgram::run()
+void ToyRobotProgram::run(int argc, char* argv[])
 {
     bool running = true;
     bool successOp = false;
@@ -25,6 +25,23 @@ void ToyRobotProgram::run()
     MovesetParser moveParser;
     TableTop squareTable = TableTop(5,5);
 
+    // command line file input
+    if (argc == 3 && std::string(argv[1]) == "-f") {
+        std::string filePath = argv[2];
+        std::optional<std::list<std::string>> setOfMoves = moveParser.parseCommandsFromFile(filePath);
+        
+        if (setOfMoves.has_value()) {
+            CommandLineDisplay::displayMoveset(setOfMoves.value());
+            executor.execute(setOfMoves.value(), squareTable);
+        } else {
+            std::cerr << "Error: Could not parse commands from file." << std::endl;
+            return;
+        }
+
+        running = false;
+    }
+
+    // interactive path
     while(running){
         CommandLineDisplay::displayWelcome();
         mainmenuInput = userListener.listenInitialInput();

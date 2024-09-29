@@ -14,7 +14,7 @@ class ToyRobotProgram {
 public:
     static ToyRobotProgram& getInstance();
     
-    void run();
+    void run(int argc, char* argv[]);
     void stop();
     bool filePath(CommandExecutor& executor, MovesetParser& moveParser, TableTop& squareTable);
     bool inputPath(CommandExecutor& executor, MovesetParser& moveParser, TableTop& squareTable);

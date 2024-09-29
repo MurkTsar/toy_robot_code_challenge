@@ -1,9 +1,9 @@
 #include <iostream>
 #include "ToyRobotProgram.h"
 
-int main() {
+int main(int argc, char* argv[]) {
     Logger::getInstance();
-    ToyRobotProgram::getInstance().run();
+    ToyRobotProgram::getInstance().run(argc,argv);
     Logger::getInstance().stopLogger();
     ToyRobotProgram::getInstance().stop();
     return 0;

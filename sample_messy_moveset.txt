@@ -1,0 +1,34 @@
+MOVE
+
+LEFT
+
+RIGHT
+
+REPORT
+
+PLACE 1, 1, EAST
+
+REPORT
+east
+west 1,2 place
+this place
+MOVE
+invalid
+LEFT
+iamnotacommand
+RIGHT
+
+REPORT
+TROPER
+pLaCe
+
+REPORT
+
+MOVE
+     MOVE
+  MOVE
+MOVE
+RIGHT
+RIGHT
+right
+REPORT
