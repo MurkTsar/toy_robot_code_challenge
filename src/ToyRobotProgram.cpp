@@ -15,18 +15,13 @@ ToyRobotProgram::~ToyRobotProgram() {
 
 void ToyRobotProgram::run(int argc, char* argv[])
 {
-    bool running = true;
-    bool successOp = false;
-    int mainmenuInput = 0;
-    int tryagainInput = 0;
-    UserInputListener userListener;
     CommandExecutor executor;
-    InputFileListener fileListener;
     MovesetParser moveParser;
     TableTop squareTable = TableTop(5,5);
 
-    // command line file input
-    if (argc == 3 && std::string(argv[1]) == "-f") {
+    if (argc == 1) {
+        simpleUI(executor, moveParser, squareTable);
+    } else if (argc == 3 && std::string(argv[1]) == "-f") {
         std::string filePath = argv[2];
         std::optional<std::list<std::string>> setOfMoves = moveParser.parseCommandsFromFile(filePath);
         
@@ -37,11 +32,30 @@ void ToyRobotProgram::run(int argc, char* argv[])
             std::cerr << "Error: Could not parse commands from file." << std::endl;
             return;
         }
+    } else if (argc == 3 && std::string(argv[1]) == "-m") {
+        std::string moveString = argv[2];
+        std::optional<std::list<std::string>> setOfMoves = moveParser.parseCommands(moveString);
 
-        running = false;
+        if (setOfMoves.has_value()) {
+            CommandLineDisplay::displayMoveset(setOfMoves.value());
+            executor.execute(setOfMoves.value(), squareTable);
+        } else {
+            std::cerr << "Error: Could not parse commands from string." << std::endl;
+            return;
+        }
+    } else if (argc == 2 && std::string(argv[1]) == "-h") {
+        CommandLineDisplay::displayCommandLineMenu();
     }
+}
 
-    // interactive path
+void ToyRobotProgram::simpleUI(CommandExecutor& executor, MovesetParser& moveParser, TableTop& aTable){
+    bool running = true;
+    bool successOp = false;
+    int mainmenuInput = 0;
+    int tryagainInput = 0;
+    UserInputListener userListener;
+    InputFileListener fileListener;
+    
     while(running){
         CommandLineDisplay::displayWelcome();
         mainmenuInput = userListener.listenInitialInput();
@@ -49,12 +63,12 @@ void ToyRobotProgram::run(int argc, char* argv[])
         switch (mainmenuInput)
         {
         case 1:
-            if(filePath(executor,moveParser,squareTable)){
+            if(fileReadProcess(executor,moveParser,aTable)){
                 successOp = true;
             }
             break;
         case 2:
-            if(inputPath(executor,moveParser,squareTable)){
+            if(inputReadProcess(executor,moveParser,aTable)){
                 successOp = true;
             }
             break;
@@ -75,7 +89,7 @@ void ToyRobotProgram::run(int argc, char* argv[])
 
         if (running && tryagainInput == 1) {
             mainmenuInput = 0;
-            (void)squareTable.removeRobot();
+            (void)aTable.removeRobot();
             successOp = false;
             CommandLineDisplay::clearScreen();
         } else if (tryagainInput == 2) {
@@ -86,7 +100,7 @@ void ToyRobotProgram::run(int argc, char* argv[])
     CommandLineDisplay::displayGoodbye();
 }
 
-bool ToyRobotProgram::filePath(CommandExecutor& executor, MovesetParser& moveParser, TableTop& aTable)
+bool ToyRobotProgram::fileReadProcess(CommandExecutor& executor, MovesetParser& moveParser, TableTop& aTable)
 {
     std::optional<std::list<std::string>> setOfMoves;
     std::string stringOfMoves;
@@ -110,7 +124,7 @@ bool ToyRobotProgram::filePath(CommandExecutor& executor, MovesetParser& movePar
     return true;
 }
 
-bool ToyRobotProgram::inputPath(CommandExecutor& executor, MovesetParser& moveParser, TableTop& aTable)
+bool ToyRobotProgram::inputReadProcess(CommandExecutor& executor, MovesetParser& moveParser, TableTop& aTable)
 {
     std::optional<std::list<std::string>> setOfMoves;
     std::string stringOfMoves;

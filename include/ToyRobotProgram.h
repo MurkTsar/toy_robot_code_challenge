@@ -16,8 +16,9 @@ public:
     
     void run(int argc, char* argv[]);
     void stop();
-    bool filePath(CommandExecutor& executor, MovesetParser& moveParser, TableTop& squareTable);
-    bool inputPath(CommandExecutor& executor, MovesetParser& moveParser, TableTop& squareTable);
+    bool fileReadProcess(CommandExecutor& executor, MovesetParser& moveParser, TableTop& aTable);
+    bool inputReadProcess(CommandExecutor& executor, MovesetParser& moveParser, TableTop& aTable);
+    void simpleUI(CommandExecutor& executor, MovesetParser& moveParser, TableTop& aTable);
     
 private:
     ToyRobotProgram();

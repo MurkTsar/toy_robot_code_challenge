@@ -20,6 +20,15 @@ constexpr const char* programtitle =
 constexpr const char* goodbye = 
     "\n\nTHANK YOU, SAID THE ROBOT";
 
+constexpr const char* commandlinemenu =
+    "\nUsage: ToyRobotApp.exe [options]\n\n"
+"Options: \n"
+"  -h               Show help menu and exit \n"
+"  -m <moves>       Run the program in manual input mode\n"
+"  -f <file-path>   Run the program with commands from a specified file\n"
+"\n"
+"If no option is set, simple UI is selected";
+
 void CommandLineDisplay::displayMainMenu() {
     std::cout << mainMenuOptions;
 }
@@ -34,6 +43,10 @@ void CommandLineDisplay::displayWelcome() {
 
 void CommandLineDisplay::displayGoodbye(){
     std::cout << goodbye;
+}
+
+void CommandLineDisplay::displayCommandLineMenu(){
+    std::cout << commandlinemenu;
 }
 
 void CommandLineDisplay::displayMoveset(const std::list<std::string>& moves) {

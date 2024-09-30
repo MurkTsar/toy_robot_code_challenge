@@ -46,6 +46,11 @@ public:
     static void clearScreen();
 
     /**
+     * @brief display command line -h menu
+     */
+    static void displayCommandLineMenu();
+
+    /**
      * @brief Displays a graphical representation of the robot's location and direction on the tabletop
      * @param position The current position of the robot
      * @param direction The current direction where the robot is facing
