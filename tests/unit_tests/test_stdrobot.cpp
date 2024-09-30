@@ -117,5 +117,5 @@ TEST(Test_stdRobot, toStringReport) {
     robot.turnLeft();
     robot.move();
 
-    EXPECT_EQ(robot.toStringReport(), "output: 1, 2, WEST");
+    EXPECT_EQ(robot.toStringReport(), "Output: 1, 2, WEST");
 }
